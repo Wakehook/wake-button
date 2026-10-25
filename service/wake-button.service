@@ -1,0 +1,16 @@
+[Unit]
+Description=WakeHook wake button agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# Put WAKEHOOK_URL=… (and optionally WAKE_BUTTON_LOCATION=…) in this file, chmod 600
+EnvironmentFile=/etc/wake-button.env
+ExecStart=/usr/bin/python3 /opt/wake-button/host/wake_button.py
+Restart=always
+RestartSec=5
+User=wakebutton
+SupplementaryGroups=dialout
+
+[Install]
+WantedBy=multi-user.target
